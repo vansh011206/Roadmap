@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Web Development Roadmap</title>
+    <style>
+        /* CSS Variables for consistent theming */
+        :root {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --accent-color: #3498db;
+            --completed-color: #2ecc71;
+            --card-bg: #1e1e1e;
+            --shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Reset and base styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        /* Header styling */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+        #next-task-btn {
+            background-color: var(--accent-color);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            margin-bottom: 15px;
+        }
+        #next-task-btn:hover {
+            background-color: #2980b9;
+        }
+
+        /* Progress bar styling */
+        .progress-bar {
+            background-color: #333;
+            height: 25px;
+            border-radius: 12px;
+            overflow: hidden;
+            width: 80%;
+            margin: 0 auto 10px;
+            box-shadow: var(--shadow);
+        }
+        .progress {
+            background: linear-gradient(to right, var(--completed-color), var(--accent-color));
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease-in-out;
+        }
+        #progress-text {
+            font-size: 1.1em;
+        }
+
+        /* Phase styling */
+        .phase {
+            margin-bottom: 20px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow);
+        }
+        .phase summary {
+            cursor: pointer;
+            padding: 15px;
+            font-size: 1.4em;
+            background: linear-gradient(to right, rgb(18, 18, 59)
+            , #0d3047);
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .phase summary:hover {
+            background: linear-gradient(to right, #2980b9, var(--accent-color));
+        }
+
+        /* Week styling */
+        .week {
+            margin: 15px 20px;
+        }
+        .week h3 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        /* Day range styling */
+        .day-range {
+            background-color: var(--card-bg);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            transition: transform 0.2s ease, background-color 0.3s ease, border-left 0.3s ease;
+            position: relative;
+        }
+        .day-range:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .day-range.completed {
+            background-color: rgba(46, 204, 113, 0.2);
+            border-left: 5px solid var(--completed-color);
+        }
+        .day-range h4 {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .day-range ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* Checkbox styling */
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .checkbox-label input {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--text-color);
+            border-radius: 4px;
+            margin-right: 10px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .checkbox-label input:checked {
+            background-color: var(--completed-color);
+            border-color: var(--completed-color);
+        }
+        .checkbox-label input::after {
+            content: '✔';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            color: #fff;
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+        .checkbox-label input:checked::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            .progress-bar {
+                width: 100%;
+            }
+            .phase summary {
+                font-size: 1.2em;
+            }
+            .week h3 {
+                font-size: 1.1em;
+            }
+            .day-range h4 {
+                font-size: 1em;
+            }
+            .day-range ul {
+                font-size: 0.9em;
+            }
+            .phase {
+                margin-bottom: 10px;
+            }
+            .week {
+                margin: 10px;
+            }
+            .checkbox-label input {
+                width: 25px;
+                height: 25px;
+            }
+            .checkbox-label input::after {
+                font-size: 18px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header with progress bar and next task button -->
+    <div class="header">
+        <h1>Web Development Roadmap</h1>
+        <button id="next-task-btn">Go to Next Task</button>
+        <div class="progress-bar">
+            <div class="progress"></div>
+        </div>
+        <span id="progress-text">0% completed</span>
+    </div>
+    <div id="roadmap"></div>
+
+    <script>
+        // Roadmap data structure
+        const roadmap = [
+            {
+                phase: 1,
+                title: "Web Development Basics",
+                weeks: [
+                    {
+                        week: 1,
+                        title: "HTML Foundations",
+                        days: [
+                            { range: "1-2", title: "HTML Basic Structure", topics: ["Learn HTML document structure", "Understand semantic tags", "Practice creating basic webpage layouts", "Exercises: Create simple pages with headings, paragraphs, lists"], daysCount: 2 },
+                            { range: "3-4", title: "HTML Forms and Tables", topics: ["Master form elements", "Learn table creation", "Create interactive forms", "Exercises: Build contact forms, pricing tables"], daysCount: 2 },
+                            { range: "5-6", title: "Advanced HTML Elements", topics: ["Explore multimedia tags", "Learn about semantic layout (header, nav, main, footer)", "Create a personal introduction page", "Exercises: Embed videos, create navigation menus"], daysCount: 2 },
+                            { range: "7", title: "Project Day - Personal Introduction Page", topics: ["Combine all learned HTML skills", "Create a responsive personal webpage", "Include biography, skills, contact information"], daysCount: 1 }
+                        ]
+                    },
+                    {
+                        week: 2,
+                        title: "CSS Fundamentals",
+                        days: [
+                            { range: "8-9", title: "CSS Basics and Selectors", topics: ["Learn CSS syntax", "Understand selectors (class, ID, element)", "Basic styling techniques", "Exercises: Style your personal page, create colorful layouts"], daysCount: 2 },
+                            { range: "10-11", title: "CSS Box Model and Layout", topics: ["Learn padding, margin, border", "Understand block vs. inline elements", "Basic positioning techniques", "Exercises: Create multi-column layouts, card designs"], daysCount: 2 },
+                            { range: "12-13", title: "Responsive Design Basics", topics: ["Learn media queries", "Create mobile-responsive designs", "Flexbox introduction", "Exercises: Make existing pages responsive"], daysCount: 2 },
+                            { range: "14", title: "Project Day - Responsive Portfolio", topics: ["Create a fully responsive portfolio website", "Implement mobile and desktop versions", "Add smooth transitions and hover effects"], daysCount: 1 }
+                        ]
+                    },
+                    {
+                        week: 3,
+                        title: "JavaScript Fundamentals (Part 1)",
+                        days: [
+                            { range: "15-17", title: "JavaScript Basics", topics: ["Variables and data types", "Operators", "Basic arithmetic and logic", "Exercises: Simple calculators, age converters"], daysCount: 3 },
+                            { range: "18-20", title: "Control Structures", topics: ["Conditional statements (if-else)", "Loops (for, while)", "Switch statements", "Exercises: Number guessing games, basic algorithms"], daysCount: 3 },
+                            { range: "21-23", title: "Functions and Scope", topics: ["Function declaration and expression", "Arrow functions", "Scope and closures", "Exercises: Utility function libraries"], daysCount: 3 }
+                        ]
+                    },
+                    {
+                        week: 4,
+                        title: "JavaScript Fundamentals (Part 2)",
+                        days: [
+                            { range: "24-26", title: "DOM Manipulation Basics", topics: ["Selecting DOM elements", "Modifying element content", "Event listeners", "Exercises: Interactive buttons, dynamic content changers"], daysCount: 3 },
+                            { range: "27-29", title: "Advanced DOM Interactions", topics: ["Form validation", "Dynamic UI updates", "Basic animations", "Exercises: Real-time form validators, interactive dashboards"], daysCount: 3 },
+                            { range: "30", title: "Milestone Project - Interactive Web App", topics: ["Create a complete interactive web application", "Combine HTML, CSS, and JavaScript skills", "Example: Todo List App with full functionality"], daysCount: 1 }
+                        ]
+                    }
+                ]
+            },
+            {
+                phase: 2,
+                title: "JavaScript Deep Dive",
+                weeks: [
+                    {
+                        week: 5,
+                        title: "Advanced JavaScript (Part 1)",
+                        days: [
+                            { range: "31-33", title: "Arrays and Iteration", topics: ["Array methods (`map`, `filter`, `reduce`)", "Iteration techniques", "Complex array manipulations", "Exercises: Data transformation challenges"], daysCount: 3 },
+                            { range: "34-36", title: "Objects and JSON", topics: ["Object creation and manipulation", "JSON parsing", "Local storage", "Exercises: Personal data managers, config systems"], daysCount: 3 },
+                            { range: "37-39", title: "Asynchronous JavaScript", topics: ["Promises", "Async/await", "Fetch API", "Exercises: Weather apps, data fetching challenges"], daysCount: 3 }
+                        ]
+                    },
+                    {
+                        week: 6,
+                        title: "Advanced JavaScript (Part 2)",
+                        days: [
+                            { range: "40-42", title: "Error Handling and Advanced Concepts", topics: ["Try-catch blocks", "Error handling strategies", "Debugging techniques", "Exercises: Robust error management"], daysCount: 3 },
+                            { range: "43-44", title: "Mini Project Weeks", topics: ["Build a comprehensive JavaScript application", "Implement advanced concepts learned", "Example: Real-time quiz application"], daysCount: 2 }
+                        ]
+                    }
+                ]
+            },
+            {
+                phase: 3,
+                title: "Frontend Frameworks",
+                weeks: [
+                    {
+                        week: 7,
+                        title: "React.js Fundamentals (Part 1)",
+                        days: [
+                            { range: "45-50", title: "React Basics", topics: ["Component structure", "Props and state", "Basic hooks (`useState`)", "Exercises: Simple component libraries"], daysCount: 6 },
+                            { range: "51-55", title: "Advanced React Hooks", topics: ["`useEffect`", "`useContext`", "Custom hooks", "Exercises: Complex state management"], daysCount: 5 }
+                        ]
+                    },
+                    {
+                        week: 8,
+                        title: "React.js Fundamentals (Part 2)",
+                        days: [
+                            { range: "56-60", title: "React Router and Navigation", topics: ["Client-side routing", "Multi-page application structure", "Navigation patterns", "Project: Multi-page personal portfolio"], daysCount: 5 },
+                            { range: "61-74", title: "Advanced React Projects", topics: ["State management libraries", "Complex application architecture", "Comprehensive project development", "Project: Full-featured web application (e.g., task manager, e-commerce dashboard)"], daysCount: 14 }
+                        ]
+                    }
+                ]
+            },
+            {
+                phase: 4,
+                title: "Full-Stack Development",
+                weeks: [
+                    {
+                        week: 9,
+                        title: "Backend and Database (Part 1)",
+                        days: [
+                            { range: "75-90", title: "Node.js and Express", topics: ["Server setup", "Route creation", "Middleware understanding", "Project: Basic REST API"], daysCount: 16 },
+                            { range: "91-105", title: "Database Integration", topics: ["MongoDB basics", "Mongoose ORM", "Database design", "Project: User management system"], daysCount: 15 }
+                        ]
+                    },
+                    {
+                        week: 10,
+                        title: "Backend and Database (Part 2)",
+                        days: [
+                            { range: "106-120", title: "Full-Stack Integration", topics: ["Frontend-backend connection", "Authentication systems", "Deployment strategies", "Final Project: Complete web application with backend"], daysCount: 15 }
+                        ]
+                    }
+                ]
+            },
+            {
+                phase: 5,
+                title: "Continuous Learning and Refinement",
+                weeks: [
+                    {
+                        week: 11,
+                        title: "Ongoing Development",
+                        days: [
+                            { range: "121-180", title: "Continuous Learning", topics: ["Open-source contributions", "Advanced algorithm challenges", "Technical interview preparation", "Portfolio enhancement", "Specialization in chosen web development area"], daysCount: 60 }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        // Render the roadmap dynamically
+        function renderRoadmap() {
+            const roadmapContainer = document.getElementById('roadmap');
+            roadmap.forEach(phase => {
+                const phaseDetails = document.createElement('details');
+                phaseDetails.classList.add('phase');
+                const summary = document.createElement('summary');
+                summary.textContent = `Phase ${phase.phase}: ${phase.title}`;
+                phaseDetails.appendChild(summary);
+                phase.weeks.forEach(week => {
+                    const weekDiv = document.createElement('div');
+                    weekDiv.classList.add('week');
+                    weekDiv.innerHTML = `<h3>Week ${week.week}: ${week.title}</h3>`;
+                    week.days.forEach(day => {
+                        const dayDiv = document.createElement('div');
+                        dayDiv.classList.add('day-range');
+                        const checkboxId = `checkpoint-p${phase.phase}-w${week.week}-r${day.range.replace(' ', '-')}`;
+                        dayDiv.innerHTML = `
+                            <h4>Days ${day.range}: ${day.title}</h4>
+                            <ul>
+                                ${day.topics.map(topic => `<li>${topic}</li>`).join('')}
+                            </ul>
+                            <label class="checkbox-label">
+                                <input type="checkbox" id="${checkboxId}" data-days="${day.daysCount}">
+                                Mark as Completed
+                            </label>
+                        `;
+                        weekDiv.appendChild(dayDiv);
+                    });
+                    phaseDetails.appendChild(weekDiv);
+                });
+                roadmapContainer.appendChild(phaseDetails);
+            });
+        }
+
+        // Update progress bar and completed states
+        function updateProgress() {
+            const checkedBoxes = document.querySelectorAll('input[type="checkbox"]:checked');
+            const completedDays = Array.from(checkedBoxes).reduce((sum, box) => sum + parseInt(box.dataset.days), 0);
+            const progress = (completedDays / 180) * 100; // Total days = 180
+            document.querySelector('.progress').style.width = `${progress}%`;
+            document.getElementById('progress-text').textContent = `${Math.round(progress)}% completed`;
+            document.querySelectorAll('.day-range').forEach(day => {
+                const checkbox = day.querySelector('input[type="checkbox"]');
+                if (checkbox.checked) {
+                    day.classList.add('completed');
+                } else {
+                    day.classList.remove('completed');
+                }
+            });
+        }
+
+        // Handle checkbox changes and save to localStorage
+        function handleCheckboxChange(event) {
+            const checkbox = event.target;
+            const id = checkbox.id;
+            let completedRanges = JSON.parse(localStorage.getItem('completedRanges')) || [];
+            if (checkbox.checked) {
+                if (!completedRanges.includes(id)) completedRanges.push(id);
+            } else {
+                completedRanges = completedRanges.filter(rangeId => rangeId !== id);
+            }
+            localStorage.setItem('completedRanges', JSON.stringify(completedRanges));
+            updateProgress();
+        }
+
+        // Initialize the app
+        function init() {
+            renderRoadmap();
+            const completedRanges = JSON.parse(localStorage.getItem('completedRanges')) || [];
+            completedRanges.forEach(id => {
+                const checkbox = document.getElementById(id);
+                if (checkbox) checkbox.checked = true;
+            });
+            updateProgress();
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', handleCheckboxChange);
+            });
+            document.getElementById('next-task-btn').addEventListener('click', () => {
+                const unchecked = document.querySelector('input[type="checkbox"]:not(:checked)');
+                if (unchecked) {
+                    unchecked.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    alert('All tasks completed!');
+                }
+            });
+        }
+
+        // Start the app when the page Farewells
+        window.onload = init;
+    </script>
+</body>
+</html>
