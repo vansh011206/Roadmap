@@ -1,0 +1,197 @@
+
+        :root {
+            --bg-color: #121212;
+            --text-color: #e0e0e0;
+            --accent-color: #3498db;
+            --completed-color: #2ecc71;
+            --card-bg: #1e1e1e;
+            --shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Reset and base styles */
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            padding: 20px;
+            line-height: 1.6;
+        }
+
+        /* Header styling */
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-size: 2.5em;
+            margin-bottom: 15px;
+            color: var(--accent-color);
+        }
+        #next-task-btn {
+            background-color: var(--accent-color);
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 1em;
+            transition: background-color 0.3s ease;
+            margin-bottom: 15px;
+        }
+        #next-task-btn:hover {
+            background-color: #2980b9;
+        }
+
+        /* Progress bar styling */
+        .progress-bar {
+            background-color: #333;
+            height: 25px;
+            border-radius: 12px;
+            overflow: hidden;
+            width: 80%;
+            margin: 0 auto 10px;
+            box-shadow: var(--shadow);
+        }
+        .progress {
+            background: linear-gradient(to right, var(--completed-color), var(--accent-color));
+            height: 100%;
+            width: 0%;
+            transition: width 0.5s ease-in-out;
+        }
+        #progress-text {
+            font-size: 1.1em;
+        }
+
+        /* Phase styling */
+        .phase {
+            margin-bottom: 20px;
+            border: 1px solid #333;
+            border-radius: 8px;
+            overflow: hidden;
+            background-color: var(--card-bg);
+            box-shadow: var(--shadow);
+        }
+        .phase summary {
+            cursor: pointer;
+            padding: 15px;
+            font-size: 1.4em;
+            background: linear-gradient(to right, rgb(18, 18, 59)
+            , #0d3047);
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+        .phase summary:hover {
+            background: linear-gradient(to right, #2980b9, var(--accent-color));
+        }
+
+        /* Week styling */
+        .week {
+            margin: 15px 20px;
+        }
+        .week h3 {
+            color: var(--accent-color);
+            margin-bottom: 10px;
+            font-size: 1.2em;
+        }
+
+        /* Day range styling */
+        .day-range {
+            background-color: var(--card-bg);
+            padding: 15px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            transition: transform 0.2s ease, background-color 0.3s ease, border-left 0.3s ease;
+            position: relative;
+        }
+        .day-range:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        }
+        .day-range.completed {
+            background-color: rgba(46, 204, 113, 0.2);
+            border-left: 5px solid var(--completed-color);
+        }
+        .day-range h4 {
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+        .day-range ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+
+        /* Checkbox styling */
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            cursor: pointer;
+        }
+        .checkbox-label input {
+            appearance: none;
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--text-color);
+            border-radius: 4px;
+            margin-right: 10px;
+            position: relative;
+            cursor: pointer;
+            transition: background-color 0.3s ease, border-color 0.3s ease;
+        }
+        .checkbox-label input:checked {
+            background-color: var(--completed-color);
+            border-color: var(--completed-color);
+        }
+        .checkbox-label input::after {
+            content: '✔';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0);
+            color: #fff;
+            font-size: 14px;
+            transition: transform 0.3s ease;
+        }
+        .checkbox-label input:checked::after {
+            transform: translate(-50%, -50%) scale(1);
+        }
+
+        /* Responsive design */
+        @media (max-width: 600px) {
+            .header h1 {
+                font-size: 2em;
+            }
+            .progress-bar {
+                width: 100%;
+            }
+            .phase summary {
+                font-size: 1.2em;
+            }
+            .week h3 {
+                font-size: 1.1em;
+            }
+            .day-range h4 {
+                font-size: 1em;
+            }
+            .day-range ul {
+                font-size: 0.9em;
+            }
+            .phase {
+                margin-bottom: 10px;
+            }
+            .week {
+                margin: 10px;
+            }
+            .checkbox-label input {
+                width: 25px;
+                height: 25px;
+            }
+            .checkbox-label input::after {
+                font-size: 18px;
+            }
+        }
